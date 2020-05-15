@@ -1,0 +1,30 @@
+version: 1
+
+dn: uid=4956b3df2a8b,ou=people,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+cn: Mark A
+sn: A
+displayName: Mark A
+givenName: Mark
+mail: mark.a@acturus.net
+
+dn: uid=668984d0daeb,ou=people,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: organizationalPerson
+objectClass: person
+cn: Scott B
+sn: B
+givenName: Scott
+mail: s.b@acturus.net
+
+dn: uid=26fe213bbeea,ou=people,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: organizationalPerson
+objectClass: person
+cn: Samuel C
+sn: C
+givenName: Samuel
+mail: sam.c@acturus.net
+

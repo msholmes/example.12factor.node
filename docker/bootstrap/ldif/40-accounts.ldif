@@ -1,0 +1,10 @@
+version: 1
+
+dn: uid=service,ou=accounts,{{ LDAP_BASE_DN }}
+objectClass: simpleSecurityObject
+objectClass: top
+objectClass: account
+uid: grouper
+userPassword:: e1NTSEEyNTZ9d0ZEOHIrUGorTngybGZaT3hNZm9zZ2FVdjI2ZFdQZTlIYzVGa
+ y8yaGEzdjVvZi91VG9JaGxnPT0=
+memberOf: cn=administrators,ou=groups,{{ LDAP_BASE_DN }}

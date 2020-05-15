@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'com.avast.gradle.docker-compose' version '0.12.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+test.doFirst {
+    dockerCompose.exposeAsEnvironment(test)
+}
+
+dockerCompose.isRequiredBy(test)
+dockerCompose {
+    useComposeFiles = ['docker/docker-compose.yml']
+}

@@ -1,0 +1,21 @@
+version: '3.6'
+
+services:
+
+  test:
+    image: particlekit/ldap-client
+    depends_on:
+      - ldap
+    command: ldapsearch -x -H ldap://ldap -D "cn=admin,dc=acturus,dc=net" -w admin -b dc=acturus,dc=net
+  ldap:
+    image: osixia/openldap
+    container_name: ldap
+    ports:
+      - "389:389"
+    environment:
+      - 'LDAP_ORGANISATION=Acturus'
+      - 'LDAP_DOMAIN=acturus.net'
+    volumes:
+      - ./bootstrap/ldif/custom:/container/service/slapd/assets/config/bootstrap/ldif/custom
+    command:
+      - "--copy-service"

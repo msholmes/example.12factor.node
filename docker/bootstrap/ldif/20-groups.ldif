@@ -1,0 +1,34 @@
+version: 1
+
+dn: cn=system,ou=groups,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: groupOfNames
+cn: system
+description: Group of accounts that have full access to the Enterprise Direc
+ tory
+
+dn: cn=authn-lookup,ou=groups,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: groupOfNames
+cn: dir:authn-lookup
+member: cn=Manager,{{ LDAP_BASE_DN }}
+member: uid=service,ou=accounts,{{ LDAP_BASE_DN }}
+description: Authorization to lookup DistinguishedNames of user's by their u
+ id value.
+
+dn: cn=people-lookup,ou=groups,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: groupOfNames
+cn: people-lookup
+member: cn=Manager,{{ LDAP_BASE_DN }}
+member: uid=service,ou=accounts,{{ LDAP_BASE_DN }}
+description: Authorization to read personal attributes within the directory
+
+dn: cn=administrators,ou=groups,{{ LDAP_BASE_DN }}
+objectClass: top
+objectClass: groupOfNames
+cn: administrators
+member: uid=service,ou=accounts,{{ LDAP_BASE_DN }}
+description: Group of accounts that have full access to the Enterprise Direc
+ tory
+
