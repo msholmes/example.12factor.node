@@ -13,6 +13,9 @@ services:
     container_name: app
     environment:
       - 'MONGO_URL=mongodb://root:password@mongo/admin'
+      - 'LDAP_URL=ldap://ldap'
+      - 'LDAP_USER=cn=admin,dc=acturus,dc=net'
+      - 'LDAP_PASSWORD=admin'
       - 'HOST=0.0.0.0'
       - 'PORT=3000'
     command: "node /usr/src/app/server.js"

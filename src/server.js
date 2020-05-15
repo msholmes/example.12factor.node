@@ -1,7 +1,6 @@
-require('dotenv').config();
-
 var express = require('express');
 var mongoose = require('mongoose');
+var ldap = require('ldapjs');
 
 var app = express(); 
 
@@ -15,14 +14,23 @@ app.on('ready', function() {
     console.log(`listening at http://${HOST}:${PORT}`); 
 }); 
 
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/app";
+const MONGO_URL = process.env.MONGO_URL;
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on('error', console.error.bind(console, 'mongo connection error:'));
 db.once('open', function() { 
     app.emit('ready'); 
 });
 
-// TODO: try similar with ldap
+const LDAP_URL = process.env.LDAP_URL;
+const LDAP_USER = process.env.LDAP_USER;
+const LDAP_PASSWORD = process.env.LDAP_PASSWORD;
+
+var client = ldap.createClient({ url: LDAP_URL });
+client.on('error', console.error.bind(console, 'ldap connection error:'));
+client.once('connect', function() {
+    console.log("LDAP UP");
+    //app.emit('up');
+});
