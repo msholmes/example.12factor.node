@@ -15,14 +15,14 @@ app.on('ready', function() {
     console.log(`listening at http://${HOST}:${PORT}`); 
 }); 
 
-const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/example";
+const MONGO_URL = process.env.MONGO_URL || "mongodb://localhost/app";
 
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() { 
-    app.emit('connected'); 
+    app.emit('ready'); 
 });
 
 // TODO: try similar with ldap

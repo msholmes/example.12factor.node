@@ -12,7 +12,7 @@ services:
     image: acturus/example-12factor-node
     container_name: app
     environment:
-      - 'MONGO_URL=mongodb://root:password@mongo/app'
+      - 'MONGO_URL=mongodb://root:password@mongo/admin'
       - 'HOST=0.0.0.0'
       - 'PORT=3000'
     command: "node /usr/src/app/server.js"
@@ -21,8 +21,8 @@ services:
     depends_on:
       - mongo
       - ldap
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
   ldap:
     image: osixia/openldap
     container_name: ldap
