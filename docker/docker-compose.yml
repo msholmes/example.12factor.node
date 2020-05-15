@@ -2,16 +2,30 @@ version: '3.6'
 
 services:
 
-  test:
+  smoke:
     image: particlekit/ldap-client
+    container_name: smoke
     depends_on:
       - ldap
     command: ldapsearch -x -H ldap://ldap -D "cn=admin,dc=acturus,dc=net" -w admin -b dc=acturus,dc=net
+  app:
+    image: acturus/example-12factor-node
+    container_name: app
+    environment:
+      - 'MONGO_URL=mongodb://root:password@mongo/app'
+      - 'HOST=0.0.0.0'
+      - 'PORT=3000'
+    command: "node /usr/src/app/server.js"
+    volumes:
+      - ./src:/app
+    depends_on:
+      - mongo
+      - ldap
+    expose:
+      - "3000"
   ldap:
     image: osixia/openldap
     container_name: ldap
-    ports:
-      - "389:389"
     environment:
       - 'LDAP_ORGANISATION=Acturus'
       - 'LDAP_DOMAIN=acturus.net'
@@ -19,3 +33,13 @@ services:
       - ./bootstrap/ldif/custom:/container/service/slapd/assets/config/bootstrap/ldif/custom
     command:
       - "--copy-service"
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    environment:
+      - 'MONGO_INITDB_ROOT_USERNAME=root'
+      - 'MONGO_INITDB_ROOT_PASSWORD=password'
+      - 'MONGO_INITDB_DATABASE=app'
+    volumes:
+      - ./bootstrap/mongo:/docker-entrypoint-initdb.d:ro

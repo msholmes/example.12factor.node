@@ -4,5 +4,12 @@
   "description": "Application exemplifying the 12 design factors of 12factor.net",
   "main": "src/app.js",
   "author": "Mark Holmes (mark@acturus.net)",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "git@github.com:msholmes/example.12factor.node.git",
+  "private": true,
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.14"
+  }
 }
